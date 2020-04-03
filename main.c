@@ -54,17 +54,25 @@ void main() {
    int16 digit = getInput(seed);
    srand(_atoi(seed, digit));
    int16 num = (int16)rand();
+   int16 cnt = 0;
    //printf("\fnum : %ld\n",(long long)num);
    printf(lcd_putc,"\fEnter Number\nBtw 0 - 65535");
    char ran[10];
    while(1){
       digit = getInput(ran);
+      cnt++;
+      int16 input = _atoi(ran, digit);
       //printf("\fran : %ld\n",(long long)_atoi(ran, digit));
-      if(_atoi(ran, digit) < num)printf("\fless than\n");
-      else if(_atoi(ran, digit) > num)printf("\fgreater than\n");
+      if(input < num){
+         printf("\f%ld less than answer\n", (long long)input);
+         printf(lcd_putc,"\fless than answer");
+      }
+      else if(input > num){
+         printf("\f%ld greater than answer\n", (long long)input);
+         printf(lcd_putc,"\fgreater than answer");
+      }
       else{
-         printf("\fCorrect\!\n");
-         printf(lcd_putc,"\fCORRECT\!");
+         printf(lcd_putc,"\fCORRECT\!\nanswered %ld times", (long long)cnt);
          break;
       }
    }
